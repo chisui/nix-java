@@ -24,20 +24,15 @@
     ++ optArg "source" sourceVersion
     ++ optArg "target" targetVersion
     ++ [ "-encoding ${encoding}" ];
+  javacCmd = "javac ${concatStringsSep " " javacArgs} -d $out $src/*";
 
 in pkgs.stdenv.mkDerivation {
   inherit name version src srcs;
   phases = [ "unpackPhase" "buildPhase" ];
   buildPhase = ''
-    ${if debug 
-      then "echo \"javac ${concatStringsSep " " javacArgs}\" -d $out $src/*"
-      else ""
-    }
+    ${if debug then "echo \"${javacCmd}\"" else "" }
     mkdir $out
-    ${jdk}/bin/javac \
-      ${concatStringsSep " " javacArgs} \
-      -d $out \
-      $src/*
+    ${jdk}/bin/${javacCmd}
   '';
 }
 

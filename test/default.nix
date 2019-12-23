@@ -8,6 +8,7 @@ mkDerivation {
   installPhase = ''
     mkdir $out
     ln -s ${import ./simple { inherit pkgs; } } $out/simple
+    ln -s ${import ./withClassPath { inherit pkgs; } } $out/withClassPath
   '';
 }
 
