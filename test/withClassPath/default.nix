@@ -1,7 +1,7 @@
 { pkgs
 }: let
-  javac = import ../../javac.nix { inherit pkgs; };
-in javac {
+  nix-java = import ../.. { inherit pkgs; };
+in nix-java.javac {
   debug = true;
   name = "test.withClassPath";
   version = "0.1.0";
